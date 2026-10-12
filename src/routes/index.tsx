@@ -64,7 +64,7 @@ function Viewer() {
         if (!document.querySelector("script[data-model-viewer]")) {
           const s = document.createElement("script");
           s.type = "module";
-          s.dataset.modelViewer = "1";
+          s.setAttribute("data-model-viewer", "1");
           s.src = "https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js";
           document.head.appendChild(s);
         }
