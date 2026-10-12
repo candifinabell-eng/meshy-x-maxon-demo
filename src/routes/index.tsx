@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createElement, useEffect, useState } from "react";
 
-const TITLE = "Meshy × Maxon — Create Faster. Refine Professionally.";
+const TITLE = "Meshy × Maxon: Create Faster. Refine Professionally.";
 const DESC =
   "A proposed partnership concept adding optional AI-powered 3D asset generation from Meshy to the Cinema 4D workflow.";
 
@@ -25,7 +25,7 @@ const MESHY_PROMPT = "";
 
 const steps = {
   Generate: "AI-generated initial 3D asset using Meshy.",
-  Transfer: "Proposed one-click asset transfer to Cinema 4D. (Simulated — not an existing feature.)",
+  Transfer: "Proposed one-click asset transfer to Cinema 4D. This step is simulated and is not an existing feature.",
   Refine: "Artists refine geometry, materials and animation using Maxon's professional tools.",
   Render:
     "Finish using Redshift and optionally continue into Adobe After Effects through existing workflows.",
@@ -159,7 +159,7 @@ function Calculator() {
     { key: "activation", label: "Trial activation rate", min: 0, max: 100, step: 1, unit: "%" },
     { key: "conversion", label: "Paid conversion among trial users", min: 0, max: 100, step: 1, unit: "%" },
     { key: "revenue", label: "Monthly revenue per paying user", min: 0, max: 100, step: 1, prefix: "$" },
-    { key: "trialCost", label: "One-time introductory trial cost per activated user", min: 0, max: 20, step: 0.5, prefix: "$" },
+    { key: "trialCost", label: "One time introductory trial cost per activated user", min: 0, max: 20, step: 0.5, prefix: "$" },
     { key: "cost", label: "Monthly service cost per paying user", min: 0, max: 50, step: 0.5, prefix: "$" },
   ];
 
@@ -172,7 +172,7 @@ function Calculator() {
             Reset
           </button>
         </div>
-        <p className="mt-2 text-sm text-muted-foreground">Hypothetical, illustrative inputs — not verified Maxon financial data. Adjust freely.</p>
+        <p className="mt-2 text-sm text-muted-foreground">These inputs are hypothetical and illustrative. They are not verified Maxon figures. Adjust freely.</p>
         <div className="mt-6 space-y-6">
           {fields.map((f) => (
             <label key={f.key} className="block">
@@ -211,8 +211,8 @@ function Calculator() {
             ["Activated trial users", fmt(activated)],
             ["Paying users", fmt(paying)],
             ["Annual gross revenue", usd(revenue)],
-            ["First-year introductory trial costs", usd(-trialCosts)],
-            ["Annual paid-user service costs", usd(-serviceCosts)],
+            ["First year introductory trial costs", usd(-trialCosts)],
+            ["Annual paid user service costs", usd(-serviceCosts)],
           ].map(([k, val]) => (
             <div key={k} className="flex justify-between py-4">
               <dt className="text-muted-foreground">{k}</dt>
@@ -221,7 +221,7 @@ function Calculator() {
           ))}
         </dl>
         <div className="mt-4 rounded-lg bg-secondary p-5">
-          <p className="text-sm text-muted-foreground">Illustrative first-year contribution before fixed costs</p>
+          <p className="text-sm text-muted-foreground">Illustrative first year contribution before fixed costs</p>
           <p className={`mt-1 font-display text-4xl tabular-nums ${contribution < 0 ? "text-destructive" : "text-primary"}`}>{usd(contribution)}</p>
         </div>
         <div className="mt-6 rounded-lg border border-border p-5 text-sm">
@@ -230,14 +230,14 @@ function Calculator() {
             <li>Activated trial users = eligible users × trial activation rate</li>
             <li>Paying users = activated trial users × paid conversion rate</li>
             <li>Annual gross revenue = paying users × monthly revenue per paying user × 12</li>
-            <li>First-year trial costs = activated trial users × one-time trial cost</li>
+            <li>First year trial costs = activated trial users × one time trial cost</li>
             <li>Annual service costs = paying users × monthly service cost × 12</li>
-            <li>First-year contribution = revenue − trial costs − service costs</li>
+            <li>First year contribution = revenue − trial costs − service costs</li>
           </ul>
           <p className="mt-3 text-xs text-muted-foreground">Excludes fixed costs (engineering, integration, support, marketing). Results may be negative.</p>
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Illustrative scenario only — not a verified ROI, profit figure or forecast.
+          This is an illustrative scenario only. It is not a verified ROI, profit figure or forecast.
         </p>
       </div>
     </div>
@@ -261,16 +261,16 @@ function Index() {
       <main className="mx-auto max-w-6xl px-6">
         <section id="intro" className="py-20 md:py-32">
           <p className="inline-block rounded-full border border-primary/40 px-4 py-1.5 text-xs text-primary">
-            Strategic partnership concept — simulated workflow
+            Strategic partnership concept, simulated workflow
           </p>
           <h1 className="mt-8 max-w-4xl font-display text-5xl leading-[1.05] md:text-7xl">
             Generate in Meshy. <span className="text-primary">Create in Cinema 4D.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-xl text-muted-foreground">
-            A proposed AI asset-generation experience that helps artists move from concept to professional production.
+            A proposed AI asset generation experience that helps artists move from concept to professional production.
           </p>
           <p className="mt-8 max-w-2xl leading-relaxed text-muted-foreground">
-            Meshy would handle the fast first draft — turning a text or image prompt into a starting 3D asset in
+            Meshy could handle the first draft by turning a text or image prompt into a starting 3D asset in
             minutes. Cinema 4D remains where artists do the real work: refining, animating and rendering with the
             professional control they already rely on.
           </p>
@@ -279,7 +279,7 @@ function Index() {
         <Section id="viewer" eyebrow="01 · Asset" title="Interactive 3D asset viewer"><Viewer /></Section>
         <Section id="workflow" eyebrow="02 · Workflow" title="From prompt to final render"><Workflow /></Section>
 
-        <Section id="partnership" eyebrow="03 · Partnership" title="A proposed three-stage commercial journey">
+        <Section id="partnership" eyebrow="03 · Partnership" title="A proposed three stage commercial journey">
           <ol className="grid gap-4 md:grid-cols-3">
             {[
               ["Introduce", "Limited introductory access with controlled generation credits."],
@@ -301,9 +301,9 @@ function Index() {
         <Section id="pilot" eyebrow="05 · Pilot" title="A 30-day joint feasibility pilot">
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              ["Days 1–10", "Test asset quality and import compatibility."],
-              ["Days 11–20", "Test professional artist workflow, time savings and rework."],
-              ["Days 21–30", "Evaluate product adoption interest and commercial feasibility."],
+              ["Days 1 to 10", "Test asset quality and import compatibility."],
+              ["Days 11 to 20", "Test professional artist workflow, time savings and rework."],
+              ["Days 21 to 30", "Evaluate product adoption interest and commercial feasibility."],
             ].map(([d, t]) => (
               <div key={d} className="border-l-2 border-primary pl-5">
                 <p className="text-sm font-semibold text-primary">{d}</p>
