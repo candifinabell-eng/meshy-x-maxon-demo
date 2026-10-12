@@ -195,8 +195,8 @@ function Calculator() {
                     type="number"
                     min={f.min}
                     step={f.step}
-                    value={v[f.key]}
-                    onChange={(e) => setV({ ...v, [f.key]: Math.max(0, Number(e.target.value) || 0) })}
+                    value={num(v[f.key])}
+                    onChange={(e) => setV({ ...v, [f.key]: Math.max(0, num(e.target.value)) })}
                     className="w-24 rounded-md border border-input bg-background px-2 py-1 text-right"
                   />
                   {f.unit}
@@ -207,8 +207,8 @@ function Calculator() {
                 min={f.min}
                 max={f.max}
                 step={f.step}
-                value={Math.min(v[f.key], f.max)}
-                onChange={(e) => setV({ ...v, [f.key]: Number(e.target.value) })}
+                value={Math.min(num(v[f.key]), f.max)}
+                onChange={(e) => setV({ ...v, [f.key]: num(e.target.value) })}
                 className="mt-3 w-full accent-primary"
               />
             </label>
