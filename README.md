@@ -1,29 +1,12 @@
-# Welcome to your Lovable project
+# Meshy × Maxon — Partnership Concept Demo
 
-This project was built with [Lovable](https://lovable.dev).
+Single-page sales demo proposing an (unofficial, simulated) Meshy + Cinema 4D partnership. No backend, no login, no APIs.
 
-## Build with Lovable
+Sections: Introduction, 3D asset viewer, interactive workflow, proposed partnership, financial calculator (hypothetical), 30-day pilot.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Adding the Meshy model
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+1. Put your file at `public/meshy-asset.glb` (exact name).
+2. Paste the original Meshy prompt into `MESHY_PROMPT` at the top of `src/routes/index.tsx`.
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Until the file exists, the viewer shows a placeholder and the rest of the site works normally. The viewer uses Google's `<model-viewer>`, loaded only when the model is present (rotate by dragging, zoom by scrolling/pinching).
