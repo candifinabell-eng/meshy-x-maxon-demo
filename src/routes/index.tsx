@@ -144,14 +144,25 @@ function Workflow() {
 
 const fmt = (n: number) => Math.round(n).toLocaleString("en-US");
 const usd = (n: number) => (n < 0 ? "-$" : "$") + fmt(Math.abs(n));
+const num = (x: unknown) => {
+  const n = typeof x === "number" ? x : parseFloat(String(x ?? ""));
+  return Number.isFinite(n) ? n : 0;
+};
 
 function Calculator() {
   const [v, setV] = useState(DEFAULTS);
-  const activated = v.users * (v.activation / 100);
-  const paying = activated * (v.conversion / 100);
-  const revenue = paying * v.revenue * 12;
-  const trialCosts = activated * v.trialCost;
-  const serviceCosts = paying * v.cost * 12;
+  const eligibleUsers = num(v.users);
+  const activationRate = num(v.activation) / 100;
+  const conversionRate = num(v.conversion) / 100;
+  const monthlyRevenue = num(v.revenue);
+  const trialCostPerUser = num(v.trialCost);
+  const monthlyServiceCost = num(v.cost);
+
+  const activated = eligibleUsers * activationRate;
+  const paying = activated * conversionRate;
+  const revenue = paying * monthlyRevenue * 12;
+  const trialCosts = activated * trialCostPerUser;
+  const serviceCosts = paying * monthlyServiceCost * 12;
   const contribution = revenue - trialCosts - serviceCosts;
 
   const fields: { key: keyof typeof DEFAULTS; label: string; min: number; max: number; step: number; unit?: string; prefix?: string }[] = [
