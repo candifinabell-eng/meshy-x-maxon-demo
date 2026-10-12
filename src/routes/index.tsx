@@ -32,7 +32,7 @@ const steps = {
 } as const;
 type Step = keyof typeof steps;
 
-const DEFAULTS = { users: 10000, activation: 10, conversion: 15, revenue: 15, cost: 3 };
+const DEFAULTS = { users: 10000, activation: 10, conversion: 20, revenue: 20, trialCost: 1, cost: 4 };
 
 const nav = [
   ["intro", "Intro"],
@@ -150,15 +150,17 @@ function Calculator() {
   const activated = v.users * (v.activation / 100);
   const paying = activated * (v.conversion / 100);
   const revenue = paying * v.revenue * 12;
-  const costs = activated * v.cost * 12;
-  const contribution = revenue - costs;
+  const trialCosts = activated * v.trialCost;
+  const serviceCosts = paying * v.cost * 12;
+  const contribution = revenue - trialCosts - serviceCosts;
 
   const fields: { key: keyof typeof DEFAULTS; label: string; min: number; max: number; step: number; unit?: string; prefix?: string }[] = [
     { key: "users", label: "Eligible users", min: 0, max: 100000, step: 500 },
-    { key: "activation", label: "Introductory activation rate", min: 0, max: 100, step: 1, unit: "%" },
-    { key: "conversion", label: "Paid conversion among activated users", min: 0, max: 100, step: 1, unit: "%" },
-    { key: "revenue", label: "Monthly incremental revenue per paying user", min: 0, max: 100, step: 1, prefix: "$" },
-    { key: "cost", label: "Monthly variable service cost per activated user", min: 0, max: 50, step: 0.5, prefix: "$" },
+    { key: "activation", label: "Trial activation rate", min: 0, max: 100, step: 1, unit: "%" },
+    { key: "conversion", label: "Paid conversion among trial users", min: 0, max: 100, step: 1, unit: "%" },
+    { key: "revenue", label: "Monthly revenue per paying user", min: 0, max: 100, step: 1, prefix: "$" },
+    { key: "trialCost", label: "One-time introductory trial cost per activated user", min: 0, max: 20, step: 0.5, prefix: "$" },
+    { key: "cost", label: "Monthly service cost per paying user", min: 0, max: 50, step: 0.5, prefix: "$" },
   ];
 
   return (
@@ -170,7 +172,7 @@ function Calculator() {
             Reset
           </button>
         </div>
-        <p className="mt-2 text-sm text-muted-foreground">Not published Maxon data. Adjust freely.</p>
+        <p className="mt-2 text-sm text-muted-foreground">Hypothetical, illustrative inputs — not verified Maxon financial data. Adjust freely.</p>
         <div className="mt-6 space-y-6">
           {fields.map((f) => (
             <label key={f.key} className="block">
@@ -206,10 +208,11 @@ function Calculator() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Illustrative outputs</p>
         <dl className="mt-6 divide-y divide-border">
           {[
-            ["Activated users", fmt(activated)],
+            ["Activated trial users", fmt(activated)],
             ["Paying users", fmt(paying)],
             ["Annual gross revenue", usd(revenue)],
-            ["Annual variable costs", usd(costs)],
+            ["First-year introductory trial costs", usd(-trialCosts)],
+            ["Annual paid-user service costs", usd(-serviceCosts)],
           ].map(([k, val]) => (
             <div key={k} className="flex justify-between py-4">
               <dt className="text-muted-foreground">{k}</dt>
@@ -218,8 +221,20 @@ function Calculator() {
           ))}
         </dl>
         <div className="mt-4 rounded-lg bg-secondary p-5">
-          <p className="text-sm text-muted-foreground">Illustrative annual contribution</p>
-          <p className="mt-1 font-display text-4xl tabular-nums text-primary">{usd(contribution)}</p>
+          <p className="text-sm text-muted-foreground">Illustrative first-year contribution before fixed costs</p>
+          <p className={`mt-1 font-display text-4xl tabular-nums ${contribution < 0 ? "text-destructive" : "text-primary"}`}>{usd(contribution)}</p>
+        </div>
+        <div className="mt-6 rounded-lg border border-border p-5 text-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">How it's calculated</p>
+          <ul className="mt-3 space-y-2 font-mono text-xs leading-relaxed text-muted-foreground">
+            <li>Activated trial users = eligible users × trial activation rate</li>
+            <li>Paying users = activated trial users × paid conversion rate</li>
+            <li>Annual gross revenue = paying users × monthly revenue per paying user × 12</li>
+            <li>First-year trial costs = activated trial users × one-time trial cost</li>
+            <li>Annual service costs = paying users × monthly service cost × 12</li>
+            <li>First-year contribution = revenue − trial costs − service costs</li>
+          </ul>
+          <p className="mt-3 text-xs text-muted-foreground">Excludes fixed costs (engineering, integration, support, marketing). Results may be negative.</p>
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
           Illustrative scenario only — not a verified ROI, profit figure or forecast.
