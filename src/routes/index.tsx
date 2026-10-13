@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 
 const MODEL_URL = "/meshy-asset.glb";
 // Paste the original Meshy prompt here once the model is added.
-const MESHY_PROMPT = "";
+const MESHY_PROMPT = "Stylized futuristic sci fi helmet, single isolated 3D object, clean hard surface geometry, symmetrical design, metallic graphite finish with subtle orange accents, sleek premium details, professional concept prop, no background, no pedestal, no text.";
 
 const steps = {
   Generate: "AI-generated initial 3D asset using Meshy.",
